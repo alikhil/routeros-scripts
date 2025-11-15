@@ -66,10 +66,12 @@
 }
 
 :global sendTelegramMessage do={
+    :global SECRET
     :local botToken
     :set botToken "$[$SECRET get TELEGRAM_TOKEN]"
     :local chatId "$[$SECRET get TELEGRAM_CHAT_ID]"
     :local message "$1"
+
 
     # telegram notification
     /tool fetch url="https://api.telegram.org/bot$botToken/sendMessage\?chat_id=$chatId&text=$message" keep-result=no
@@ -99,6 +101,7 @@
     /ip dns cache flush
     :log info "BackupDNS: DNS server disabled and cache flushed"
 
+    :global sendTelegramMessage
     # telegram notification
     $sendTelegramMessage $message
 
@@ -122,6 +125,8 @@
 
         :delay 1
         /ip dns cache flush
+
+        :global sendTelegramMessage
 
         # telegram notification
         $sendTelegramMessage $message
