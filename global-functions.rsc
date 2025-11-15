@@ -134,3 +134,8 @@
     } else={ :log info "BackupDNS: Router os already configured not to use Adguard, script exited" }
 
 }
+
+:global updateFunctions do={
+    :put "Updating global functions..."
+    :foreach Script in={ "global-functions" } do={ /system/script/set $Script source=([ /tool/fetch ("https://raw.githubusercontent.com/alikhil/routeros-scripts/main/" . $Script . ".rsc") output=user as-value]->"data"); };
+}
